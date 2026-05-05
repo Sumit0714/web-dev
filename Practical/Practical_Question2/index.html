@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JSONPlaceholder Demo</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background: #f5f5f5;
+    }
+
+    h1 { color: #333; }
+
+    button {
+      padding: 10px 20px;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover { background: #45a049; }
+
+    #status {
+      margin: 10px 0;
+      color: #888;
+      font-size: 14px;
+    }
+
+    .post-card {
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+      margin: 12px 0;
+    }
+
+    .post-card h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      color: #222;
+      text-transform: capitalize;
+    }
+
+    .post-card p {
+      margin: 0 0 8px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .post-card small {
+      color: #999;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>JSONPlaceholder Posts</h1>
+  <button onclick="fetchPosts()">Fetch Posts</button>
+  <p id="status"></p>
+  <div id="post-container"></div>
+
+  <script>
+    const API_URL = "https://jsonplaceholder.typicode.com/posts";
+
+    async function fetchPosts() {
+      const status = document.getElementById("status");
+      const container = document.getElementById("post-container");
+
+      status.textContent = "Loading...";
+      container.innerHTML = "";
+
+      try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const posts = await response.json();
+        status.textContent = `Loaded ${posts.length} posts ✓`;
+        displayPosts(posts);
+
+      } catch (error) {
+        status.textContent = "Error: " + error.message;
+        console.error(error);
+      }
+    }
+
+    function displayPosts(posts) {
+      const container = document.getElementById("post-container");
+
+      posts.forEach((post) => {
+        const card = document.createElement("div");
+        card.className = "post-card";
+        card.innerHTML = `
+          <h3>#${post.id} — ${post.title}</h3>
+          <p>${post.body}</p>
+          <small>User ID: ${post.userId}</small>
+        `;
+        container.appendChild(card);
+      });
+    }
+  </script>
+
+</body>
+</html>
