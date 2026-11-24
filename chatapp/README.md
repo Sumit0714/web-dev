@@ -5,11 +5,6 @@ I built the frontend for the chat backend we studied in class, and added my own 
 **personal rooms** that any number of friends can join using a code.
 
 **Name:** Sumit  
-
-| Desktop | Mobile |
-|---|---|
-| ![Desktop view](docs/screenshot-desktop.png) | <img src="docs/screenshot-mobile.png" width="220" alt="Mobile view" /> |
-
 ---
 
 ## ✨ Features
